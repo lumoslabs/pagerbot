@@ -31,4 +31,3 @@ spec:
           - name: DEPLOYED
             value: "{{ .Values.pagerbot.deployed }}"
       restartPolicy: Always
-
