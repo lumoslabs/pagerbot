@@ -14,7 +14,8 @@ module PagerBot
 
     def initialize(opts = {})
       pd_config = opts
-      @subdomain = pd_config.fetch(:subdomain)
+      #subdomain not needed as per PagerDuty v2
+      #@subdomain = pd_config.fetch(:subdomain)
       @api_key = pd_config.fetch(:api_key)
 
       @users = PagerBot::Models::Collection.new(
@@ -32,11 +33,14 @@ module PagerBot
     end
 
     def api_base
-      "https://#{@subdomain}.pagerduty.com/api/v1"
+      # "https://#{@subdomain}.pagerduty.com/api/v1"
+      # PagerDuty v2 doesn't need subdomain to make API request
+      "https://api.pagerduty.com/"
     end
 
     def uri_base
-      "https://#{@subdomain}.pagerduty.com"
+      # "https://#{@subdomain}.pagerduty.com"
+      "https://api.pagerduty.com/"
     end
 
     def events_api_base
