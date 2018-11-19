@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -6,6 +6,9 @@ metadata:
   name: {{ .Values.pagerbot.name }}
   namespace: {{ .Values.namespace }}
 spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.pagerbot.name }}
   replicas: 1
   strategy:
     type: Recreate
@@ -21,7 +24,7 @@ spec:
         - --
         - ruby
         - lib/pagerbot.rb
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: quay.io/lumoslabs/pagerbotv2 
         name: {{ .Values.pagerbot.name }}
         env:
           - name: LOG_LEVEL
@@ -30,4 +33,5 @@ spec:
             value: "mongodb://mongo:27017/pagerbot"
           - name: DEPLOYED
             value: "{{ .Values.pagerbot.deployed }}"
-      restartPolicy: Always
+      imagePullSecrets:
+        - name: quay
