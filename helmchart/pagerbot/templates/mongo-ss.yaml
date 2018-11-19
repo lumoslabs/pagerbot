@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    name: {{ .Values.mongo.name }}
+  name: {{ .Values.mongo.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  serviceName: {{ .Values.mongo.name }}
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.mongo.name }}
+  volumeClaimTemplates:
+    - metadata:
+        name: "{{ .Values.mongo.name }}-data"
+        labels:
+          app: {{ .Values.mongo.name }}
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.mongo.storageSize }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.mongo.name }}
+    spec:
+      containers:
+      - image: "{{ .Values.mongo.image.repository }}:{{ .Values.mongo.image.tag }}"
+        name: {{ .Values.mongo.name }}
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - mountPath: /data/db
+          name: "{{ .Values.mongo.name }}-data"

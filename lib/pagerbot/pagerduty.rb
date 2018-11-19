@@ -15,7 +15,7 @@ module PagerBot
     def initialize(opts = {})
       pd_config = opts
       #subdomain not needed as per PagerDuty v2
-      #@subdomain = pd_config.fetch(:subdomain)
+      @subdomain = pd_config.fetch(:subdomain)
       @api_key = pd_config.fetch(:api_key)
 
       @users = PagerBot::Models::Collection.new(

@@ -8,6 +8,7 @@ mongo:
   image:
     repository: mongo
     tag: 3
+  storageSize: 20Mi
 
 pagerbotAdmin:
   name: pagerbot-admin
@@ -17,5 +18,5 @@ pagerbot:
   deployed: false # Change to true manually after entering keys on localhost:4567 (pagerbot-admin)
 
 image:
-  repository: quay.io/lunarway/pagerbot #change to quay.io/lumoslabs/pagerbotv2
-  tag: 0.0.1
+  repository: quay.io/lumoslabs/pagerbotv2 #quay.io/lunarway/pagerbot #change to quay.io/lumoslabs/pagerbotv2
+  #tag: latest
