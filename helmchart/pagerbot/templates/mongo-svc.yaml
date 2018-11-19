@@ -6,6 +6,7 @@ metadata:
   name: {{ .Values.mongo.name }}
   namespace: {{ .Values.namespace }}
 spec:
+  clusterIP: None
   ports:
   - name: "27017"
     port: 27017
