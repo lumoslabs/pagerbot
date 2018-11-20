@@ -12,10 +12,12 @@ mongo:
 
 pagerbotAdmin:
   name: pagerbot-admin
+  ingressClass: "nginx-public"
+  hostname: "pagerbot.ops.eks.lumoslabs.com"
 
 pagerbot:
   name: pagerbot
-  deployed: false # Change to true manually after entering keys on localhost:4567 (pagerbot-admin)
+  deployed: true # Change to true manually after entering keys on localhost:4567 (pagerbot-admin)
 
 image:
   repository: quay.io/lumoslabs/pagerbotv2 #quay.io/lunarway/pagerbot #change to quay.io/lumoslabs/pagerbotv2
