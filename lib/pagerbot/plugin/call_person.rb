@@ -14,7 +14,7 @@ module PagerBot::Plugins
     def self.manual
       {
         description: "Page a person by nick or schedule (which could be a team)",
-        syntax: ["get TEAM_OR_SCHEDULE [SUBJECT]"],
+        syntax: ["get TEAM|SCHEDULE [SUBJECT]"],
         examples: [
           "get karl you are needed in warroom",
           "get myschedule the load balancers are down"
