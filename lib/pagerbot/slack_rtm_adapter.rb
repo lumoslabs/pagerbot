@@ -70,8 +70,9 @@ module PagerBot
       logger.info "Received a query.", nick: usernames, query: text
       response = PagerBot.process text, extra_data
       if response[:private_message]
-        dm_channel = "@#{find_user(message.user).name}"
-        send_message response.fetch(:private_message), dm_channel
+        #dm_channel = "@#{find_user(message.user).name}"
+        # to give pagerduty response on same slack channel on which request was made
+        send_message response.fetch(:private_message), channel #dm_channel
       else
         send_message response.fetch(:message), channel
       end

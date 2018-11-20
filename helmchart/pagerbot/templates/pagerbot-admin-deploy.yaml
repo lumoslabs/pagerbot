@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -6,6 +6,9 @@ metadata:
   name: {{ .Values.pagerbotAdmin.name }}
   namespace: {{ .Values.namespace }}
 spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.pagerbotAdmin.name }}
   replicas: 1
   strategy:
     type: Recreate
@@ -22,7 +25,7 @@ spec:
         - ruby
         - lib/pagerbot.rb
         - admin
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: quay.io/lumoslabs/pagerbotv2
         name: {{ .Values.pagerbotAdmin.name }}
         ports:
         - containerPort: 4567
@@ -31,4 +34,5 @@ spec:
             value: "debug"
           - name: MONGODB_URI
             value: "mongodb://mongo:27017/pagerbot"
-      restartPolicy: Always
+      imagePullSecrets:
+        - name: quay
