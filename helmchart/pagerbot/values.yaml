@@ -17,7 +17,7 @@ pagerbotAdmin:
 
 pagerbot:
   name: pagerbot
-  deployed: true # Change to true manually after entering keys on localhost:4567 (pagerbot-admin)
+  deployed: false # Change to true manually after entering keys on localhost:4567 (pagerbot-admin)
 
 image:
   repository: quay.io/lumoslabs/pagerbotv2 #quay.io/lunarway/pagerbot #change to quay.io/lumoslabs/pagerbotv2
