@@ -12,6 +12,8 @@ mongo:
 
 pagerbotAdmin:
   name: pagerbot-admin
+  ingressClass: "nginx-public"
+  hostname: "pagerbot.ops.eks.lumoslabs.com"
 
 pagerbot:
   name: pagerbot

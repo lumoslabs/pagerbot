@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.pagerbotAdmin.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.pagerbotAdmin.name }}
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.pagerbotAdmin.ingressClass | quote }}
+    nginx.ingress.kubernetes.io/connection-proxy-header: '""'
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+    certmanager.k8s.io/acme-challenge-type: dns01
+    certmanager.k8s.io/acme-dns01-provider: route53-us-east-1
+spec:
+  tls:
+    - hosts:
+      - {{ .Values.pagerbotAdmin.hostname }}
+      secretName: {{ .Values.pagerbotAdmin.name }}-tls
+  rules:
+    - host: {{ .Values.pagerbotAdmin.hostname }}
+      http:
+        paths:
+          - backend:
+              serviceName: {{ .Values.pagerbotAdmin.name }}
+              servicePort: http
