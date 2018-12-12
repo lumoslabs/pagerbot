@@ -24,7 +24,7 @@ spec:
         - --
         - ruby
         - lib/pagerbot.rb
-        image: quay.io/lumoslabs/pagerbotv2 
+        image: quay.io/lumoslabs/pagerbotv2
         name: {{ .Values.pagerbot.name }}
         env:
           - name: LOG_LEVEL
@@ -33,5 +33,13 @@ spec:
             value: "mongodb://mongo:27017/pagerbot"
           - name: DEPLOYED
             value: "{{ .Values.pagerbot.deployed }}"
+        livenessProbe:
+          exec:
+            command:
+              - bash
+              - -c
+              - "ss -an | grep -q 'EST.*:443 *$'"
+          initialDelaySeconds: 120
+          periodSeconds: 60
       imagePullSecrets:
         - name: quay
